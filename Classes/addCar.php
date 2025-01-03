@@ -4,19 +4,34 @@
 
         protected $model;
         protected $price;
-        protected $disponibility;
-        protected $category;
+        protected $categoryId;
 
-        public function __construct($model, $price, $disponibility, $category)
-        {
+        public function __construct($model, $price, $categoryId){
             $this->model = $model;
             $this->price = $price;
-            $this->disponibility = $disponibility;
-            $this->category = $category;
+            $this->categoryId = $categoryId;
 
         }
 
         protected function addNewCar(){
-            $stmt = $this->connect()->prepare('INSERT INTO cars(model, price, disponibility) VALUES (?, ?, ?);');
+            $stmt = $this->connect()->prepare('INSERT INTO cars(model, price, categoryId) VALUES (?, ?, ?);');
+
+            if(!$stmt->execute(array($this->model, $this->price, $this->categoryId))){
+                $stmt = NULL;
+                header("Location: ./index.php?error=stmtfailed");
+                exit();
+            }
+            $stmt = NULL;
+        }
+
+        public function createCar() {
+            try {
+                $this->addNewCar();
+                header("Location: ./index.php?success=caradded");
+                exit();
+            } catch (Exception $e) {
+                header("Location: ./index.php?error=stmtfailed");
+                exit();
+            }
         }
     }

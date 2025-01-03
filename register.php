@@ -7,7 +7,7 @@ if(isset($_POST["submit"])){
     $password = $_POST["password"];
 
     include "db.php";
-    include "../Drive-Loc/Classes/signup.php";
+    include "../Drive-Loc/Classes/user.php";
     include "../Drive-Loc/Helpers/signupContr.php";
     $signup = new signupContr($nom, $email, $password);
 

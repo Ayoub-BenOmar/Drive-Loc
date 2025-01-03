@@ -12,10 +12,16 @@ CREATE TABLE users (
 
 CREATE TABLE cars (
     idCar INT AUTO_INCREMENT PRIMARY KEY,
+    categoryId INT,
     model VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    disponible BOOLEAN DEFAULT TRUE,
-    categorie ENUM('Family', 'Work', 'Luxury', 'Truck') NOT NULL
+    disponible BOOLEAN NOT NULL DEFAULT TRUE;
+    FOREIGN KEY (categoryId) REFERENCES category(categoryId) ON DELETE CASCADE
+);
+
+CREATE TABLE category (
+    categoryId INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE reservations (

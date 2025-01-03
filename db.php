@@ -2,7 +2,7 @@
 
 class database{
 
-    protected function connect(){
+    public function connect(){
         try {
             $username = "root";
             $password = "";

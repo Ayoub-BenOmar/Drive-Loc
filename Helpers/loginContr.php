@@ -1,6 +1,6 @@
 <?php
-require_once './Classes/login.php';
-class loginContr extends login{
+require_once './Classes/user.php';
+class loginContr extends user{
 
     protected $email;
     protected $password;
@@ -26,7 +26,6 @@ class loginContr extends login{
         $this->getUser($this->email,  $this->password);
         echo "Login successfully";
 
-        header("location: index.php");
     }
 
     private function emptyInputs(){

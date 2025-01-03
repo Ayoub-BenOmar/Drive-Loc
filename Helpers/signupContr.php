@@ -1,6 +1,6 @@
 <?php
-require_once './Classes/signup.php';
-class signupContr extends signup{
+require_once './Classes/user.php';
+class signupContr extends user{
 
     protected $nom;
     protected $email;

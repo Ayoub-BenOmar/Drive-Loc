@@ -1,3 +1,16 @@
+<?php
+
+require_once('Classes/addCategory.php');
+require_once('db.php');
+
+    $db= new database();
+    $pdo = $db->connect();
+    // init the category 
+    $category = new Category("");
+    $show = $category::GetAllCategories ($pdo);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +34,6 @@
         <button type="submit" name="submit">Sign Up</button>
     </form>
 
-
     <form action="signin.php" method="post">
         <h2>Login</h2>
 
@@ -31,7 +43,51 @@
         <label for="password">Password:</label>
         <input type="password" name="password">
 
-        <button type="submit" name="submit">Sign Up</button>
+        <button type="submit" name="submit">Sign In</button>
+    </form>
+
+    <form action="newCar.php" method="post">
+        <h2>Add new car</h2>
+
+        <label for="model">Model:</label>
+        <input type="text" name="model">
+
+        <label for="price">Price:</label>
+        <input type="number" name="price">
+
+        <label for="category">Choose a category:</label>
+        <select name="categoryId" id="category">
+            <?php foreach ($show as $category): ?>
+                <option value="<?= htmlspecialchars($category['categoryId']) ?>">
+                    <?= htmlspecialchars($category['category']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Add car</button>
+
+        <!-- <input type="checkbox" name="disponible" value="1" checked> Available  -->
+    </form>
+
+    <!-- <form action="Category.php" method="POST">
+        <label for="category">Choose a category:</label>
+        <select name="category" id="category">
+            <?php foreach ($show as $category): ?>
+                <option value="<?= htmlspecialchars($category['categoryId']) ?>">
+                    <?= htmlspecialchars($category['category']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Submit</button>
+    </form> -->
+
+
+    <form action="Category.php" method="post">
+        <h2>Category</h2>
+
+        <label for="category">Category:</label>
+        <input type="text" name="category">
+        <button type="submit" name="submit">Add</button>
+
     </form>
 </body>
 </html>
