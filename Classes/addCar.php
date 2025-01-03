@@ -1,5 +1,5 @@
 <?php
-require_once("db.php");
+include "../db.php";
 
 class Car {
     protected $brand;
@@ -34,7 +34,7 @@ class Car {
                 'image' => $this->image
             ]);
 
-            header("Location: ./index.php?error=none");
+            header("location: Front/Admin.php?error=none");
             exit();
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());

@@ -1,10 +1,10 @@
 <?php
-
+ include "db.php";
 if(isset($_POST["submit"])){
 
     $category = $_POST["category"];
 
-    include "db.php";
+   
     include "../Drive-Loc/Classes/addCategory.php";
 
     $database = new Database();

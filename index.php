@@ -73,18 +73,6 @@ require_once('db.php');
 
     </form>
 
-    <!-- <form action="Category.php" method="POST">
-        <label for="category">Choose a category:</label>
-        <select name="category" id="category">
-            <?php foreach ($show as $category): ?>
-                <option value="<?= htmlspecialchars($category['categoryId']) ?>">
-                    <?= htmlspecialchars($category['category']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit">Submit</button>
-    </form> -->
-
 
     <form action="Category.php" method="post">
         <h2>Category</h2>

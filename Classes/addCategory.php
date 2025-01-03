@@ -1,5 +1,5 @@
 <?php 
-require_once("db.php");
+include "../db.php";
 class Category {
 
     protected $category; 
@@ -18,7 +18,7 @@ class Category {
             $stmt = $pdo->prepare('INSERT INTO category(category) VALUES (:category);');
             $stmt->execute(['category' => $this->category]);
             // return "done";
-            header("location: ./index.php?error=none");
+            header("location: Front/Admin.php?error=none");
             exit();
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());

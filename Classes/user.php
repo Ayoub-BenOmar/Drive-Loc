@@ -64,6 +64,7 @@ class user extends database{
             session_start();
             $_SESSION["userid"] = $hashedPassword[0]["idUser"];
             $_SESSION["email"] = $hashedPassword[0]["email"];
+            
             echo"naja7t";
             // header("location: index.php?error=none");
             exit();
