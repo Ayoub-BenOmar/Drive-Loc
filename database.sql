@@ -14,8 +14,10 @@ CREATE TABLE cars (
     idCar INT AUTO_INCREMENT PRIMARY KEY,
     categoryId INT,
     model VARCHAR(100) NOT NULL,
+    brand VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    disponible BOOLEAN NOT NULL DEFAULT TRUE;
+    disponible BOOLEAN NOT NULL DEFAULT TRUE,
+    image VARCHAR(255),
     FOREIGN KEY (categoryId) REFERENCES category(categoryId) ON DELETE CASCADE
 );
 

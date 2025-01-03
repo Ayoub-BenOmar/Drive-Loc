@@ -46,14 +46,20 @@ require_once('db.php');
         <button type="submit" name="submit">Sign In</button>
     </form>
 
-    <form action="newCar.php" method="post">
+    <form action="newCar.php" method="POST">
         <h2>Add new car</h2>
 
         <label for="model">Model:</label>
         <input type="text" name="model">
 
+        <label for="brand">Brand:</label>
+        <input type="text" name="brand">
+
         <label for="price">Price:</label>
         <input type="number" name="price">
+
+        <label for="image">Car Image:</label>
+        <input type="file" name="image" id="image" accept="image/*">
 
         <label for="category">Choose a category:</label>
         <select name="categoryId" id="category">
@@ -65,7 +71,6 @@ require_once('db.php');
         </select>
         <button type="submit">Add car</button>
 
-        <!-- <input type="checkbox" name="disponible" value="1" checked> Available  -->
     </form>
 
     <!-- <form action="Category.php" method="POST">

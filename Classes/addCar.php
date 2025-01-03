@@ -1,37 +1,71 @@
 <?php
+require_once("db.php");
 
-    class addCar extends database{
+class Car {
+    protected $brand;
+    protected $model;
+    protected $price;
+    protected $categoryId;  
+    protected $image;
 
-        protected $model;
-        protected $price;
-        protected $categoryId;
+    public function __construct($brand, $model, $price, $categoryId, $image) {
+        $this->brand = $brand;
+        $this->model = $model;
+        $this->price = $price;
+        $this->categoryId = $categoryId;
+        $this->image = $image;
+    }
 
-        public function __construct($model, $price, $categoryId){
-            $this->model = $model;
-            $this->price = $price;
-            $this->categoryId = $categoryId;
-
+    public function addCar($pdo) {
+        if (empty($this->brand) || empty($this->model) || empty($this->price) || empty($this->categoryId)) {
+            header("Location: ./index.php?error=emptyInput");
+            exit();
         }
 
-        protected function addNewCar(){
-            $stmt = $this->connect()->prepare('INSERT INTO cars(model, price, categoryId) VALUES (?, ?, ?);');
+        try {
+            $stmt = $pdo->prepare('INSERT INTO cars (brand, model, price, categoryId, image) 
+                                 VALUES (:brand, :model, :price, :categoryId, :image)');
+            
+            $stmt->execute([
+                'brand' => $this->brand,
+                'model' => $this->model,
+                'price' => $this->price,
+                'categoryId' => $this->categoryId,
+                'image' => $this->image
+            ]);
 
-            if(!$stmt->execute(array($this->model, $this->price, $this->categoryId))){
-                $stmt = NULL;
-                header("Location: ./index.php?error=stmtfailed");
-                exit();
-            }
-            $stmt = NULL;
-        }
-
-        public function createCar() {
-            try {
-                $this->addNewCar();
-                header("Location: ./index.php?success=caradded");
-                exit();
-            } catch (Exception $e) {
-                header("Location: ./index.php?error=stmtfailed");
-                exit();
-            }
+            header("Location: ./index.php?error=none");
+            exit();
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            header("Location: ./index.php?error=databaseError");
+            exit();
         }
     }
+
+    public static function getAllCars($pdo) {
+        try {
+            $stmt = $pdo->prepare('
+                SELECT cars.*, category.category as category_name 
+                FROM cars 
+                LEFT JOIN category ON cars.categoryId = category.categoryId
+            ');
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public static function getCarById($pdo, $id) {
+        try {
+            $stmt = $pdo->prepare('SELECT * FROM cars WHERE idCar = :id');
+            $stmt->execute(['id' => $id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return null;
+        }
+    }
+}
