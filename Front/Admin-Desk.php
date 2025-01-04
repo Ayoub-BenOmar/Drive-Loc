@@ -8,7 +8,7 @@ $pdo = $db->connect();
 
 // Fetch all cars
 $car = new Car("", "", "", "", "", "");
-$show = $car::getAllCars($pdo);
+$show = $car::getAllCars($pdo, "");
 ?>
 <!DOCTYPE html>
 <html lang="en">

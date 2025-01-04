@@ -9,7 +9,7 @@ $pdo = $db->connect();
 
 // Fetch all cars
 $car = new Car("", "", "", "", "", "");
-$show = $car::getAllCars($pdo);
+$show = $car::getAllCars($pdo, 5);
 
 $category = new Category("");
 $categories = $category::GetAllCategories ($pdo);
@@ -88,7 +88,9 @@ $categories = $category::GetAllCategories ($pdo);
                             </div>
                         </div>
                         <div class="mt-4 text-center">
-                            <button class="bg-orange-500 text-white px-4 py-2 rounded">Reserve</button>
+                            <a href="carDetails.php?carId=<?php echo $car['idCar'] ?>">
+                                <button class="bg-orange-500 text-white px-4 py-2 rounded">Reserve</button>
+                            </a>
                         </div>
                     </div>
                 </div>

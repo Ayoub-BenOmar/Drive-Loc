@@ -43,12 +43,12 @@ class Car {
         }
     }
 
-    public static function getAllCars($pdo) {
+    public static function getAllCars($pdo, $carId) {
         try {
             $stmt = $pdo->prepare('
                 SELECT cars.*, category.category as category_name 
                 FROM cars 
-                LEFT JOIN category ON cars.categoryId = category.categoryId
+                LEFT JOIN category ON cars.categoryId = category.categoryId;
             ');
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,7 +60,12 @@ class Car {
 
     public static function getCarById($pdo, $id) {
         try {
-            $stmt = $pdo->prepare('SELECT * FROM cars WHERE idCar = :id');
+            $stmt = $pdo->prepare('
+                SELECT cars.*, category.category as category_name 
+                FROM cars 
+                LEFT JOIN category ON cars.categoryId = category.categoryId
+                WHERE cars.idCar = :id;
+            ');
             $stmt->execute(['id' => $id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

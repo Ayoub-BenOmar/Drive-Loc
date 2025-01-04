@@ -14,13 +14,12 @@
 </head>
 
 <body class="bg-cover bg-center h-screen text-gray-800 h-screen w-screen flex flex-col" style="background-image: url('../homeCar.jpg');">
-
     <!-- Navbar -->
     <nav class="bg-gray-800 py-4 px-8 flex-none">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold text-orange-500">Our Company</h1>
             <div>
-                <a href="Home.php" class="text-white mx-2">Home</a>
+                <a href="Home.php" class="text-white mx-2">Home</a> 
                 <a href="#" class="text-white mx-2">Reservations</a>
                 <a href="Cars.php" class="text-white mx-2">Cars</a>
             </div>

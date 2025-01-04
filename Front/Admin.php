@@ -26,7 +26,7 @@ require_once('../db.php');
 </head>
 
 <body class="bg-cover bg-center h-screen text-white h-screen w-screen flex flex-col" style="background-image: url('../CarRent.jpg');">
-
+        
     <!-- Navbar -->
     <nav class="bg-gray-800 p-4 flex-none">
         <div class="container mx-auto flex justify-between items-center">
