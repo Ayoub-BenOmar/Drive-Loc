@@ -51,11 +51,11 @@ $categories = $category::GetAllCategories ($pdo);
         <div class="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden flex">
             <!-- Car Image -->
             <div class="w-1/2 p-8">
-                <img src="../Car.jpg" alt="Car Image" class="object-cover w-full h-auto rounded-lg shadow-lg">
+                <img src="../Pics/Car.jpg" alt="Car Image" class="object-cover w-full h-auto rounded-lg shadow-lg">
             </div>
             <!-- Car Details -->
             <div class="w-1/2 p-8">
-                <h2 class="text-2xl font-bold text-orange-500 mb-4"><?= htmlspecialchars($carDetails['brand']) ?> <?= htmlspecialchars($carDetails['model']) ?></h2>
+                <h2 class="text-2xl font-bold text-orange-500 mb-4"><?= htmlspecialchars($carDetails['brand']) ?> : <?= htmlspecialchars($carDetails['model']) ?></h2>
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
                         <p class="text-gray-700"><strong>Price:</strong> $<?= htmlspecialchars($carDetails['price']) ?>/day</p>
@@ -84,18 +84,22 @@ $categories = $category::GetAllCategories ($pdo);
                 </div>
 
                 <!-- Reservation Form -->
-                <form action="reserve.php" method="POST" class="mt-4">
-                    <input type="hidden" name="carId" value="<?= htmlspecialchars($carId) ?>">
-                    <div class="mb-4">
-                        <label for="debutDate" class="block text-gray-700">Debut Date:</label>
-                        <input type="date" id="debutDate" name="debutDate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="endDate" class="block text-gray-700">End Date:</label>
-                        <input type="date" id="endDate" name="endDate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" required>
-                    </div>
-                    <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded">Reserve</button>
-                </form>
+                <?php if ($carDetails['disponible']): ?>
+                    <form action="../reserve.php" method="POST" class="mt-4">
+                        <input type="hidden" name="carId" value="<?= htmlspecialchars($carId) ?>">
+                        <div class="mb-4">
+                            <label for="debutDate" class="block text-gray-700">Debut Date:</label>
+                            <input type="date" id="dateDebut" name="dateDebut" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="endDate" class="block text-gray-700">End Date:</label>
+                            <input type="date" id="dateFin" name="dateFin" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" required>
+                        </div>
+                        <button type="submit" name="reserveSubmit" class="bg-orange-500 text-white px-4 py-2 rounded">Reserve</button>
+                    </form>
+                <?php else: ?>
+                    <p class="text-red-500 text-xl font-bold mt-4">This car is currently unavailable for reservation.</p>
+                <?php endif; ?>
             </div>
         </div>
     </main>

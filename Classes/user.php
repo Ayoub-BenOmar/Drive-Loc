@@ -1,5 +1,7 @@
 <?php
 
+require_once "../db.php";
+
 class user extends database{
 
     protected function setUser($nom, $email, $password){
@@ -75,4 +77,32 @@ class user extends database{
 
         $stmt = null;
     }
+
+    public function reserveCar($carId, $dateDebut, $dateFin) {
+        try {
+            $stmt = $this->connect()->prepare('INSERT INTO reservations (idCar, idUser, dateDebut, dateFin, statut) VALUES (?, ?, ?, ?, "en attente")');
+            $stmt->execute([$carId, $_SESSION["userid"], $dateDebut, $dateFin]);
+
+            $stmt = $this->connect()->prepare('UPDATE cars SET disponible = false WHERE idCar = ?');
+            $stmt->execute([$carId]);
+
+            return true;
+
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getUserReservations($userId) {
+        try {
+            $stmt = $this->connect()->prepare('SELECT * FROM reservations WHERE idUser = ?');
+            $stmt->execute([$userId]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
 }
+

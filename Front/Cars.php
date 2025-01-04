@@ -37,7 +37,7 @@ $categories = $category::GetAllCategories ($pdo);
             <h1 class="text-3xl font-bold text-orange-500">Our Company</h1>
             <div>
                 <a href="Home.php" class="text-white mx-2">Home</a>
-                <a href="#" class="text-white mx-2">Reservations</a>
+                <a href="Reservations.php" class="text-white mx-2">Reservations</a>
                 <a href="Cars.php" class="text-white mx-2">Cars</a>
             </div>
         </div>
@@ -63,7 +63,7 @@ $categories = $category::GetAllCategories ($pdo);
                 <!-- Example Car Card -->
                 <?php foreach ($show as $car): ?>
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="../Car.jpg" alt="Car Image" class="w-full h-1/2 object-cover">
+                    <img src="../Pics/Car.jpg" alt="Car Image" class="w-full h-1/2 object-cover">
                     <div class="p-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
@@ -81,9 +81,11 @@ $categories = $category::GetAllCategories ($pdo);
                             <div>
                                 <h3 class="text-lg font-bold text-gray-900">Availability:</h3>
                                 <p class="text-gray-700">
-                                <?php if(htmlspecialchars($car['disponible'])): ?> Available
-                                    <?php else: ?> Unvailable
-                                    <?php endif;?>
+                                    <?php if (htmlspecialchars($car['disponible'])): ?>
+                                        <span class="text-green-500">Available</span>
+                                    <?php else: ?>
+                                        <span class="text-red-500">Unavailable</span>
+                                    <?php endif; ?>
                                 </p>
                             </div>
                         </div>

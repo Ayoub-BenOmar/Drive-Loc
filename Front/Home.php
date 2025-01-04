@@ -20,7 +20,7 @@
             <h1 class="text-3xl font-bold text-orange-500">Our Company</h1>
             <div>
                 <a href="Home.php" class="text-white mx-2">Home</a> 
-                <a href="#" class="text-white mx-2">Reservations</a>
+                <a href="Reservations.php" class="text-white mx-2">Reservations</a>
                 <a href="Cars.php" class="text-white mx-2">Cars</a>
             </div>
         </div>
