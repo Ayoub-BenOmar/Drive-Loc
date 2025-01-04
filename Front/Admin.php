@@ -58,7 +58,7 @@ require_once('../db.php');
                 </form>
 
                 <!-- Add New Car Form -->
-                <form action="../newCar.php" method="POST" enctype="multipart/form-data" class="bg-gray-600 p-4 rounded-lg max-w-lg mx-auto">
+                <form action="../newCar.php" method="POST" enctype="multipart/form-data" class="bg-gray-600 p-4 rounded-lg max-w-lg mx-auto" enctype="multipart/form-data">
                     <h2 class="text-2xl font-bold text-orange-500 mb-4">Add New Car</h2>
                     <label for="model" class="block mb-2">Model:</label>
                     <input type="text" name="model" class="w-full mb-4 p-2 rounded bg-gray-800 border border-orange-500 text-white">

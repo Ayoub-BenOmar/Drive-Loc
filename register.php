@@ -14,5 +14,5 @@ if(isset($_POST["submit"])){
     $signup->signupUser();
     echo "Register successfully";
 
-    header("location: index.php?error=none");
+    header("location: Front/Login-Register.php?error=none");
 }

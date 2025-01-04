@@ -47,12 +47,12 @@ class user extends database{
 
         if ($stmt->rowCount() == 0) {
             $stmt = null;
-            echo "User not found";
+            header("location: Front/Login-Register.php?error=UserNotFound");
             exit();
         }
 
-        $hashedPassword = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $checkPassword = password_verify($password, $hashedPassword[0]["password"]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $checkPassword = password_verify($password, $user["password"]);
 
         if ($checkPassword == false) {
             $stmt = null;
@@ -60,13 +60,16 @@ class user extends database{
             exit();
         } 
         elseif ($checkPassword == true) {
-
             session_start();
-            $_SESSION["userid"] = $hashedPassword[0]["idUser"];
-            $_SESSION["email"] = $hashedPassword[0]["email"];
-            
-            echo"naja7t";
-            // header("location: index.php?error=none");
+            $_SESSION["userid"] = $user["idUser"];
+            $_SESSION["email"] = $user["email"];
+            $_SESSION["role"] = $user["role"];
+
+            if ($user["role"] == "admin") {
+                header("location: Front/Admin-Desk.php");
+            } else {
+                header("location: Front/Home.php");
+            }
             exit();
         }
 

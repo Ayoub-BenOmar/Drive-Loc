@@ -1,5 +1,5 @@
 <?php
-
+if (!class_exists('database')){
 class database{
 
     public function connect(){
@@ -14,5 +14,5 @@ class database{
         }
     }
 }
-
+}
 ?>
