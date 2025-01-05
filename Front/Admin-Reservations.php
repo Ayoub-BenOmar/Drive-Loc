@@ -42,6 +42,7 @@ $reservations = $user->getAllReservations();
     <nav class="bg-gray-800 p-4 flex-none">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold text-orange-500">Admin Dashboard</h1>
+            <a href="../logout.php" class="text-white mx-2">Logout</a>
             <!-- Add more nav items here if needed -->
         </div>
     </nav>

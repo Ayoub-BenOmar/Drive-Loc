@@ -1,21 +1,37 @@
 <?php
 require_once('../Classes/addCar.php');
 require_once('../Classes/addCategory.php');
+require_once('../Classes/user.php');
 require_once('../db.php');
 
-// Get the car ID from the query parameter
+session_start();
 $carId = isset($_GET['carId']) ? $_GET['carId'] : null;
+$userId = isset($_SESSION['userid']) ? $_SESSION['userid'] : null;
 
-// Create a new database connection
 $db = new Database();
 $pdo = $db->connect();
 
-// Fetch car details by ID
 $car = new Car("", "", "", "", "", "");
 $carDetails = $car::getCarById($pdo, $carId);
 
 $category = new Category("");
-$categories = $category::GetAllCategories ($pdo);
+$categories = $category::GetAllCategories($pdo);
+
+$hasConfirmedReservation = false;
+if ($userId) {
+    $user = new user();
+    $stmt = $pdo->prepare('SELECT * FROM reservations WHERE idUser = ? AND idCar = ? AND statut = "confirmée"');
+    $stmt->execute([$userId, $carId]);
+    $hasConfirmedReservation = $stmt->rowCount() > 0;
+
+    // Fetch user's review for this car
+    $review = null;
+    $stmt = $pdo->prepare('SELECT * FROM avis WHERE idUser = ? AND idCar = ? AND visible = TRUE');
+    $stmt->execute([$userId, $carId]);
+    if ($stmt->rowCount() > 0) {
+        $review = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,11 +66,9 @@ $categories = $category::GetAllCategories ($pdo);
     <!-- Main Content -->
     <main class="flex-grow p-8">
         <div class="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden flex">
-            <!-- Car Image -->
             <div class="w-1/2 p-8">
                 <img src="../Pics/Car.jpg" alt="Car Image" class="object-cover w-full h-auto rounded-lg shadow-lg">
             </div>
-            <!-- Car Details -->
             <div class="w-1/2 p-8">
                 <h2 class="text-2xl font-bold text-orange-500 mb-4"><?= htmlspecialchars($carDetails['brand']) ?> : <?= htmlspecialchars($carDetails['model']) ?></h2>
                 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -84,7 +98,6 @@ $categories = $category::GetAllCategories ($pdo);
                     </div>
                 </div>
 
-                <!-- Reservation Form -->
                 <?php if ($carDetails['disponible']): ?>
                     <form action="../reserve.php" method="POST" class="mt-4">
                         <input type="hidden" name="carId" value="<?= htmlspecialchars($carId) ?>">
@@ -101,10 +114,24 @@ $categories = $category::GetAllCategories ($pdo);
                 <?php else: ?>
                     <p class="text-red-500 text-xl font-bold mt-4">This car is currently unavailable for reservation.</p>
                 <?php endif; ?>
+
+                <?php if ($hasConfirmedReservation): ?>
+                    <form action="../addReview.php" method="POST" class="mt-4">
+                        <input type="hidden" name="carId" value="<?= htmlspecialchars($carId) ?>">
+                        <input type="hidden" name="idAvis" value="<?= htmlspecialchars($review['idAvis'] ?? '') ?>">
+                        <div class="mb-4">
+                            <label for="comment" class="block text-gray-700">Your Review:</label>
+                            <textarea id="comment" name="comment" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" ><?= htmlspecialchars($review['comment'] ?? '') ?></textarea>
+                        </div>
+                        <button type="submit" name="submitReview" class="bg-orange-500 text-white px-4 py-2 rounded"><?= $review ? 'Update Review' : 'Submit Review' ?></button>
+                        <?php if ($review): ?>
+                            <button type="submit" name="deleteReview" class="bg-red-500 text-white px-4 py-2 rounded ml-2">Delete Review</button>
+                        <?php endif; ?>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
     </main>
-
 
     <!-- Footer -->
     <footer class="bg-gray-800 p-4 flex-none">

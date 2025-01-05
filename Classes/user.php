@@ -113,7 +113,6 @@ class user extends database{
         }
     }
 
-     // Accept a reservation
      public function acceptReservation($reservationId) {
         try {
             $stmt = $this->connect()->prepare('UPDATE reservations SET statut = "confirmée" WHERE idReservation = ?');
@@ -155,6 +154,53 @@ class user extends database{
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());
             return [];
+        }
+    }
+
+    public function addReview($idUser, $idCar, $comment) {
+        $reservationCheck = 'SELECT * FROM reservations WHERE idUser = ? AND idCar = ? AND statut = "confirmée"';
+        $stmt = $this->connect()->prepare($reservationCheck);
+        $stmt->execute([$idUser, $idCar]);
+
+        if ($stmt->rowCount() > 0) {
+            $insertReview = 'INSERT INTO avis (idUser, idCar, comment) VALUES (?, ?, ?)';
+            $stmt = $this->connect()->prepare($insertReview);
+            if ($stmt->execute([$idUser, $idCar, $comment])) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function editReview($idAvis, $idUser, $comment) {
+        $reviewCheck = 'SELECT * FROM avis WHERE idAvis = ? AND idUser = ? AND visible = TRUE';
+        $stmt = $this->connect()->prepare($reviewCheck);
+        $stmt->execute([$idAvis, $idUser]);
+
+        if ($stmt->rowCount() > 0) {
+            // Update the review
+            $updateReview = 'UPDATE avis SET comment = ? WHERE idAvis = ? AND idUser = ?';
+            $stmt = $this->connect()->prepare($updateReview);
+            return $stmt->execute([$comment, $idAvis, $idUser]);
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteReview($idAvis, $idUser) {
+        $reviewCheck = 'SELECT * FROM avis WHERE idAvis = ? AND idUser = ? AND visible = TRUE';
+        $stmt = $this->connect()->prepare($reviewCheck);
+        $stmt->execute([$idAvis, $idUser]);
+
+        if ($stmt->rowCount() > 0) {
+            $deleteReview = 'UPDATE avis SET visible = FALSE WHERE idAvis = ? AND idUser = ?';
+            $stmt = $this->connect()->prepare($deleteReview);
+            return $stmt->execute([$idAvis, $idUser]);
+        } else {
+            return false;
         }
     }
 }
