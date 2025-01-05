@@ -6,7 +6,7 @@
     <title>Car Rent Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="text-white h-screen w-screen flex flex-col bg-cover bg-center h-screen" style="background-image: url('../CarRent.jpg');">
+<body class="text-white h-screen w-screen flex flex-col bg-cover bg-center h-screen" style="background-image: url('../Pics/CarRent.jpg');">
 
     <!-- Header -->
     <header class="bg-gray-800 p-4 flex-none">

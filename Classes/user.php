@@ -1,6 +1,6 @@
 <?php
 
-require_once "../db.php";
+require_once __DIR__ . "/../db.php";
 
 class user extends database{
 
@@ -78,6 +78,14 @@ class user extends database{
         $stmt = null;
     }
 
+    public function logout() {
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location: Front/Login-Register.php");
+        exit();
+    }
+    
     public function reserveCar($carId, $dateDebut, $dateFin) {
         try {
             $stmt = $this->connect()->prepare('INSERT INTO reservations (idCar, idUser, dateDebut, dateFin, statut) VALUES (?, ?, ?, ?, "en attente")');
@@ -104,5 +112,50 @@ class user extends database{
             return [];
         }
     }
-}
 
+     // Accept a reservation
+     public function acceptReservation($reservationId) {
+        try {
+            $stmt = $this->connect()->prepare('UPDATE reservations SET statut = "confirmée" WHERE idReservation = ?');
+            $stmt->execute([$reservationId]);
+            return true;
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function denyReservation($reservationId) {
+        try {
+            $stmt = $this->connect()->prepare('UPDATE reservations SET statut = "annulée" WHERE idReservation = ?');
+            $stmt->execute([$reservationId]);
+            return true;
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deleteReservation($reservationId) {
+        try {
+            $stmt = $this->connect()->prepare('DELETE FROM reservations WHERE idReservation = ?');
+            $stmt->execute([$reservationId]);
+            return true;
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getAllReservations() {
+        try {
+            $stmt = $this->connect()->prepare('SELECT * FROM reservations');
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
+}
+?>

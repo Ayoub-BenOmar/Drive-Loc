@@ -3,11 +3,19 @@
 require_once('../Classes/addCategory.php');
 require_once('../db.php');
 
-    $db= new database();
-    $pdo = $db->connect();
-    // init the category 
-    $category = new Category("");
-    $show = $category::GetAllCategories ($pdo);
+session_start();
+$role = $_SESSION["role"];
+
+if ($role !== "admin") {
+    header("Location: ../index.php");
+    exit();
+}
+
+$db= new database();
+$pdo = $db->connect();
+// init the category 
+$category = new Category("");
+$show = $category::GetAllCategories ($pdo);
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +33,7 @@ require_once('../db.php');
     </style>
 </head>
 
-<body class="bg-cover bg-center h-screen text-white h-screen w-screen flex flex-col" style="background-image: url('../CarRent.jpg');">
+<body class="bg-cover bg-center h-screen text-white h-screen w-screen flex flex-col" style="background-image: url('../Pics/CarRent.jpg');">
         
     <!-- Navbar -->
     <nav class="bg-gray-800 p-4 flex-none">
@@ -41,7 +49,7 @@ require_once('../db.php');
             <nav class="flex flex-col">
                 <a href="Admin-Desk.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Desk</a>
                 <a href="Admin.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Add Car</a>
-                <a href="#" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Reservations</a>
+                <a href="Admin-Reservations.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Reservations</a>
                 <a href="#" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Dashboard</a>
             </nav>
         </aside>

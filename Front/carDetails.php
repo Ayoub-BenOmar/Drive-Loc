@@ -32,7 +32,7 @@ $categories = $category::GetAllCategories ($pdo);
     </style>
 </head>
 
-<body class="bg-cover bg-center bg-fixed text-gray-800 h-screen w-screen no-repeat flex flex-col" style="background-image: url('../homeCar.jpg');">
+<body class="bg-cover bg-center bg-fixed text-gray-800 h-screen w-screen no-repeat flex flex-col" style="background-image: url('../Pics/homeCar.jpg');">
 
     <!-- Navbar -->
     <nav class="bg-gray-800 py-4 px-8 flex-none">
@@ -42,6 +42,7 @@ $categories = $category::GetAllCategories ($pdo);
                 <a href="Home.php" class="text-white mx-2">Home</a>
                 <a href="#" class="text-white mx-2">Reservations</a>
                 <a href="Cars.php" class="text-white mx-2">Cars</a>
+                <a href="../logout.php" class="text-white mx-2">Logout</a>
             </div>
         </div>
     </nav>
