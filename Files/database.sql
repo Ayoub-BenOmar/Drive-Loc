@@ -51,3 +51,53 @@ CREATE TABLE avis (
     FOREIGN KEY (idCar) REFERENCES cars(idCar)
     ON DELETE CASCADE
 );
+
+CREATE TABLE themes (
+    idTheme INT AUTO_INCREMENT PRIMARY KEY,
+    themeName VARCHAR(100) NOT NULL,
+    dateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE articles (
+    idArticle INT AUTO_INCREMENT PRIMARY KEY,
+    idUser INT,
+    idTheme INT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    image VARCHAR(255),
+    video VARCHAR(255),
+    approved BOOLEAN DEFAULT FALSE,
+    dateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (idUser) REFERENCES users(idUser),
+    FOREIGN KEY (idTheme) REFERENCES themes(idTheme) ON DELETE CASCADE
+);
+
+CREATE TABLE tags (
+    idTag INT AUTO_INCREMENT PRIMARY KEY,
+    tagName VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE article_tags (
+    idArticle INT,
+    idTag INT,
+    FOREIGN KEY (idArticle) REFERENCES articles(idArticle) ON DELETE CASCADE,
+    FOREIGN KEY (idTag) REFERENCES tags(idTag) ON DELETE CASCADE
+);
+
+CREATE TABLE comments (
+    idComment INT AUTO_INCREMENT PRIMARY KEY,
+    idArticle INT,
+    idUser INT,
+    content TEXT NOT NULL,
+    visible BOOLEAN DEFAULT TRUE,
+    dateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (idArticle) REFERENCES articles(idArticle) ON DELETE CASCADE,
+    FOREIGN KEY (idUser) REFERENCES users(idUser)
+);
+
+CREATE TABLE favorites (
+    idUser INT,
+    idArticle INT,
+    FOREIGN KEY (idUser) REFERENCES users(idUser),
+    FOREIGN KEY (idArticle) REFERENCES articles(idArticle) ON DELETE CASCADE
+);

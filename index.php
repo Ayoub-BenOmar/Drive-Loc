@@ -1,15 +1,3 @@
-<?php
-
-require_once('Classes/addCategory.php');
-require_once('db.php');
-
-    $db= new database();
-    $pdo = $db->connect();
-    // init the category 
-    $category = new Category("");
-    $show = $category::GetAllCategories ($pdo);
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +7,7 @@ require_once('db.php');
     <title>Register</title>
 </head>
 <body>
-    <form action="register.php" method="post">
+    <!-- <form action="register.php" method="post">
         <h2>Register</h2>
 
         <label for="nom">Nom:</label>
@@ -32,21 +20,30 @@ require_once('db.php');
         <input type="password" name="password">
 
         <button type="submit" name="submit">Sign Up</button>
+    </form> -->
+
+    <form action="newTheme.php" method="post">
+            <h2>Theme</h2>
+
+            <label for="">Theme:</label>
+            <input type="text" name="theme">
+            <button type="submit" name="themeSubmit">Add</button>
+
     </form>
 
-    <form action="signin.php" method="post">
+    <form action="createPost.php" method="post">
         <h2>Login</h2>
 
-        <label for="email">Email:</label>
-        <input type="text" name="email">
+        <label for="title">title:</label>
+        <input type="text" name="title">
 
-        <label for="password">Password:</label>
-        <input type="password" name="password">
+        <label for="content">content:</label>
+        <input type="text" name="content">
 
-        <button type="submit" name="submit">Sign In</button>
+        <button type="submit" name="addPost">Sign In</button>
     </form>
 
-    <form action="newCar.php" method="POST">
+    <!-- <form action="newCar.php" method="POST">
         <h2>Add new car</h2>
 
         <label for="model">Model:</label>
@@ -71,16 +68,9 @@ require_once('db.php');
         </select>
         <button type="submit">Add car</button>
 
-    </form>
+    </form> -->
 
 
-    <form action="Category.php" method="post">
-        <h2>Category</h2>
-
-        <label for="category">Category:</label>
-        <input type="text" name="category">
-        <button type="submit" name="submit">Add</button>
-
-    </form>
+   
 </body>
 </html>

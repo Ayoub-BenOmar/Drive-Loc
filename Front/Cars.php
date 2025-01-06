@@ -39,6 +39,7 @@ $categories = $category::GetAllCategories ($pdo);
                 <a href="Home.php" class="text-white mx-2">Home</a>
                 <a href="Reservations.php" class="text-white mx-2">Reservations</a>
                 <a href="Cars.php" class="text-white mx-2">Cars</a>
+                <a href="Blog.php" class="text-white mx-2">Blog</a>
                 <a href="../logout.php" class="text-white mx-2">Logout</a>
             </div>
         </div>
