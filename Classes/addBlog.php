@@ -31,5 +31,23 @@ class blog {
             exit();
         }
     }
+
+    public function getAllBlogs($pdo) {
+        try {
+            $sql = 'SELECT articles.idArticle, articles.title, articles.content, articles.image, articles.video, articles.approved, articles.dateCreation, themes.themeName, users.username
+                    FROM articles
+                    JOIN themes ON articles.idTheme = themes.idTheme
+                    JOIN users ON articles.idUser = users.idUser
+                    ORDER BY articles.dateCreation DESC';
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
 }
 ?>

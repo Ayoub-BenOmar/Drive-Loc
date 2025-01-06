@@ -1,5 +1,5 @@
 <?php
-include "../db.php";
+include "db.php";
     class theme{
         public $themeName;
 
@@ -12,7 +12,7 @@ include "../db.php";
 
             try {
                 $stmt = $pdo->prepare('INSERT INTO themes(themeName) VALUES(?);');
-                $stmt->execute($this->themeName);
+                $stmt->execute([$this->themeName]);
                 echo "theme added successfully";
                 exit();
             } catch (PDOException $e) {
@@ -20,5 +20,11 @@ include "../db.php";
                 echo "nada di nada";
                 exit();
             }
+        }
+
+        public function getAllThemes($pdo){
+            $stmt = $pdo->prepare('SELECT * FROM themes');
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }

@@ -1,4 +1,14 @@
+<?php 
+require_once "Classes/addTheme.php";
+require_once "db.php";
 
+$db = new database();
+$pdo = $db->connect();
+
+$theme = new theme("");
+$themes = $theme->getAllThemes($pdo);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +50,16 @@
         <label for="content">content:</label>
         <input type="text" name="content">
 
-        <button type="submit" name="addPost">Sign In</button>
+        <label for="theme">Choose a theme:</label>
+        <select name="theme" id="theme">
+            <?php foreach ($themes as $theme): ?>
+                <option value="<?= htmlspecialchars($theme['idTheme']) ?>">
+                    <?= htmlspecialchars($theme['themeName']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <button type="submit" name="addPost">Add</button>
     </form>
 
     <!-- <form action="newCar.php" method="POST">
