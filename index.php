@@ -50,14 +50,14 @@ $themes = $theme->getAllThemes($pdo);
         <label for="content">content:</label>
         <input type="text" name="content">
 
-        <label for="theme">Choose a theme:</label>
-        <select name="theme" id="theme">
+        <!-- <label for="theme">Choose a theme:</label>
+        <select name="idTheme" id="idTheme">
             <?php foreach ($themes as $theme): ?>
                 <option value="<?= htmlspecialchars($theme['idTheme']) ?>">
                     <?= htmlspecialchars($theme['themeName']) ?>
                 </option>
             <?php endforeach; ?>
-        </select>
+        </select> -->
 
         <button type="submit" name="addPost">Add</button>
     </form>

@@ -1,3 +1,14 @@
+<?php 
+require_once "../Classes/addTheme.php";
+require_once "../db.php";
+
+$db = new database();
+$pdo = $db->connect();
+
+$theme = new theme("");
+$themes = $theme->getAllThemes($pdo);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +34,7 @@
                 <a href="Home.php" class="text-white mx-2">Home</a>
                 <a href="Reservations.php" class="text-white mx-2">Reservations</a>
                 <a href="Cars.php" class="text-white mx-2">Cars</a>
-                <a href="Blog.php" class="text-white mx-2">Blog</a>
+                <a href="Themes.php" class="text-white mx-2">Themes</a>
                 <a href="../logout.php" class="text-white mx-2">Logout</a>
             </div>
         </div>
@@ -32,30 +43,19 @@
     <!-- Main Content -->
     <main class="flex-grow p-8">
         <div class="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden p-8">
-            <h2 class="text-2xl font-bold text-orange-500 mb-4">Blog</h2>
-
-            <!-- Add New Post Form -->
-                <form action="add_post.php" method="POST" class="mb-8">
-                    <div class="mb-4">
-                        <label for="title" class="block text-gray-700">Title:</label>
-                        <input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" required>
+            <h2 class="text-2xl font-bold text-orange-500 mb-4">Explore Themes</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <?php foreach ($themes as $theme): ?>
+                    <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col justify-between">
+                        <h3 class="text-lg font-bold text-orange-500 mb-2"><?= htmlspecialchars($theme['themeName']) ?></h3>
+                        <p class="text-gray-700 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <a href="viewArtical.php?idTheme=<?= htmlspecialchars($theme['idTheme']) ?>" class="bg-orange-500 text-white text-center py-2 rounded-lg mt-auto">View Articles</a>
                     </div>
-                    <div class="mb-4">
-                        <label for="content" class="block text-gray-700">Content:</label>
-                        <textarea id="content" name="content" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500" required></textarea>
-                    </div>
-                    <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded">Add Post</button>
-                </form>
-
-            <!-- Display Blog Posts -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-orange-500">Title</h3>
-                    <p class="text-gray-700">Content</p>
-                    <p class="text-gray-500 text-sm">Posted on 00/00/0000</p>
-                    <a href="post.php?id=" class="text-blue-500">Read more...</a>
-                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </main>
+
 
     <!-- Footer -->
     <footer class="bg-gray-800 p-4 flex-none">

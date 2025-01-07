@@ -32,16 +32,12 @@ class blog {
         }
     }
 
-    public function getAllBlogs($pdo) {
+    public function getAllBlogs($pdo, $id_article) {
         try {
-            $sql = 'SELECT articles.idArticle, articles.title, articles.content, articles.image, articles.video, articles.approved, articles.dateCreation, themes.themeName, users.username
-                    FROM articles
-                    JOIN themes ON articles.idTheme = themes.idTheme
-                    JOIN users ON articles.idUser = users.idUser
-                    ORDER BY articles.dateCreation DESC';
+            $sql = 'SELECT articles.title, articles.idTheme, themes.themeName as theme_name from articles inner JOIN themes on themes.idTheme = articles.idTheme where articles.idTheme = :id_article';
     
             $stmt = $pdo->prepare($sql);
-            $stmt->execute();
+            $stmt->execute(['id_article' => $id_article]);
     
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
