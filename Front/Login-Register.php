@@ -11,7 +11,7 @@
     <!-- Header -->
     <header class="bg-gray-800 p-4 flex-none">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-orange-500">Car Rent</h1>
+            <h1 class="text-3xl font-bold text-orange-500">Car's Rent</h1>
             <nav>
                 <a href="#" class="text-white mx-2">Home</a>
                 <a href="#" class="text-white mx-2">About</a>

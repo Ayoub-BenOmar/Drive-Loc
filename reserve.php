@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once "../Drive-Loc/Classes/user.php";
-require_once "../Drive-Loc/db.php";
+require_once "../Drive-Loc V2/Classes/user.php";
+require_once "../Drive-Loc V2/db.php";
 
 if (isset($_POST['reserveSubmit'])) {
 

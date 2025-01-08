@@ -5,7 +5,7 @@ if(isset($_POST["submit"])){
     $category = $_POST["category"];
 
    
-    include "../Drive-Loc/Classes/addCategory.php";
+    include "../Drive-Loc V2/Classes/addCategory.php";
 
     $database = new Database();
     $pdo = $database->connect();

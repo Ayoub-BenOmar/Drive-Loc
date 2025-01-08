@@ -6,8 +6,8 @@ if(isset($_POST["submit"])){
     $password = $_POST["password"];
 
     include "db.php";
-    include "../Drive-Loc/Classes/user.php";
-    include "../Drive-Loc/Helpers/loginContr.php";
+    include "../Drive-Loc V2/Classes/user.php";
+    include "../Drive-Loc V2/Helpers/loginContr.php";
 
     $login = new loginContr($email, $password);
     $login->loginUser();
