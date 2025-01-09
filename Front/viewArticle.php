@@ -14,7 +14,6 @@ $pdo = $db->connect();
 
 $blog = new blog("", "", "", "");
 $articles = $blog->getAllBlogs($pdo, $idTheme);
-// print_r($articles);
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +57,7 @@ $articles = $blog->getAllBlogs($pdo, $idTheme);
                         <div class="bg-gray-100 rounded-lg p-4 shadow-md flex flex-col justify-between">
                             <h3 class="text-lg font-bold text-orange-500 mb-2 text-left"><?= htmlspecialchars($article['title']) ?></h3>
                             <img src="../Pics/Car.jpg" alt="Article Image" class="w-full h-32 object-cover mb-4">
-                            <a href="addArtical.php" class="bg-orange-500 text-white text-center py-2 rounded-lg mt-auto">Read more</a>
+                            <a href="Article.php?idArticle=<?= htmlspecialchars($article['idArticle']) ?>" class="bg-orange-500 text-white text-center py-2 rounded-lg mt-auto">Read more</a>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>

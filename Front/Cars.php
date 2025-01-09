@@ -3,11 +3,8 @@ require_once('../Classes/addCar.php');
 require_once('../Classes/addCategory.php');
 require_once('../db.php');
 
-// Create a new database connection
 $db = new Database();
 $pdo = $db->connect();
-
-// Fetch all cars
 $car = new Car("", "", "", "", "", "");
 $show = $car::getAllCars($pdo, 5);
 

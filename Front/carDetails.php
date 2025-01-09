@@ -23,8 +23,7 @@ if ($userId) {
     $stmt = $pdo->prepare('SELECT * FROM reservations WHERE idUser = ? AND idCar = ? AND statut = "confirmée"');
     $stmt->execute([$userId, $carId]);
     $hasConfirmedReservation = $stmt->rowCount() > 0;
-
-    // Fetch user's review for this car
+    
     $review = null;
     $stmt = $pdo->prepare('SELECT * FROM avis WHERE idUser = ? AND idCar = ? AND visible = TRUE');
     $stmt->execute([$userId, $carId]);
