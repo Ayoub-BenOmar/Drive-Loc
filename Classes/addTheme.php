@@ -1,5 +1,5 @@
 <?php
-include "../db.php";
+require_once __DIR__ . "/../db.php" ;
     class theme{
         public $themeName;
 
@@ -13,7 +13,8 @@ include "../db.php";
             try {
                 $stmt = $pdo->prepare('INSERT INTO themes(themeName) VALUES(?);');
                 $stmt->execute([$this->themeName]);
-                echo "theme added successfully";
+                // echo "theme added successfully";
+                header("Location: Front/Admin.php?error=ThemeAddedsuccessfully");
                 exit();
             } catch (PDOException $e) {
                 error_log("Database error: " . $e->getMessage());

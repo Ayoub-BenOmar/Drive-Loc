@@ -7,7 +7,7 @@ session_start();
 $role = $_SESSION["role"];
 
 if ($role !== "admin") {
-    header("Location: ../index.php");
+    header("Location: ../Front/Login-Register.php");
     exit();
 }
 
@@ -49,7 +49,7 @@ $show = $category::GetAllCategories ($pdo);
         <aside class="bg-gray-800 w-64 min-h-screen p-4 flex flex-col">
             <nav class="flex flex-col">
                 <a href="Admin-Desk.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Desk</a>
-                <a href="Admin.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Add Car</a>
+                <a href="Admin.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Add Car/Catgery/Theme</a>
                 <a href="Admin-Reservations.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Reservations</a>
                 <a href="#" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Dashboard</a>
             </nav>
@@ -57,7 +57,7 @@ $show = $category::GetAllCategories ($pdo);
 
         <!-- Main Content -->
         <main class="flex-grow p-8 overflow-auto">
-            <div class="container mx-auto grid grid-cols-2">
+            <div class="container mx-auto grid grid-cols-3">
                 <!-- Add Category Form -->
                 <form action="../Category.php" method="post" class="bg-gray-600 p-4 rounded-lg mb-8 max-w-lg mx-auto h-fit">
                     <h2 class="text-2xl font-bold text-orange-500 mb-4">Add Category</h2>
@@ -66,12 +66,12 @@ $show = $category::GetAllCategories ($pdo);
                     <button type="submit" name="submit" class="bg-orange-500 text-white p-2 rounded w-full">Add</button>
                 </form>
 
-                <!-- Add Category Form -->
-                <form action="../Category.php" method="post" class="bg-gray-600 p-4 rounded-lg mb-8 max-w-lg mx-auto h-fit">
+                <!-- Add Theme Form -->
+                <form action="../newTheme.php" method="post" class="bg-gray-600 p-4 rounded-lg mb-8 max-w-lg mx-auto h-fit">
                     <h2 class="text-2xl font-bold text-orange-500 mb-4">Add Theme</h2>
-                    <label for="category" class="block mb-2">Category:</label>
-                    <input type="text" name="category" class="w-full mb-4 p-2 rounded bg-gray-800 border border-orange-500 text-white">
-                    <button type="submit" name="submit" class="bg-orange-500 text-white p-2 rounded w-full">Add</button>
+                    <label for="theme" class="block mb-2">Theme:</label>
+                    <input type="text" name="theme" class="w-full mb-4 p-2 rounded bg-gray-800 border border-orange-500 text-white">
+                    <button type="submit" name="themeSubmit" class="bg-orange-500 text-white p-2 rounded w-full">Add</button>
                 </form>
 
                 <!-- Add New Car Form -->

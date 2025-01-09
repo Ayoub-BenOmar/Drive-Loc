@@ -47,7 +47,7 @@ $show = $car::getAllCars($pdo, "");
         <aside class="bg-gray-800 w-64 min-h-screen p-4 flex flex-col">
             <nav class="flex flex-col">
                 <a href="Admin-Desk.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Desk</a>
-                <a href="Admin.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Add Car</a>
+                <a href="Admin.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Add Car/Catgery/Theme</a>
                 <a href="Admin-Reservations.php" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Reservations</a>
                 <a href="#" class="text-white py-2 px-4 mb-2 rounded bg-gray-700 hover:bg-gray-600">Dashboard</a>
             </nav>

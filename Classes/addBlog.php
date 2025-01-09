@@ -1,5 +1,5 @@
 <?php
-include "../db.php";
+require_once __DIR__ . "/../db.php" ;
 
 class blog {
     protected $title;
@@ -23,7 +23,7 @@ class blog {
         try {
             $stmt = $pdo->prepare('INSERT INTO articles(idUser, idTheme, title, content) VALUES (?, ?, ?, ?)');
             $stmt->execute([$this->idUser, $this->idTheme, $this->title, $this->content]);
-            header("Location: index.php?success=postAdded");
+            header("Location: Front/Themes.php?success=postAdded");
             exit();
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());
