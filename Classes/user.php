@@ -91,8 +91,8 @@ class user extends database{
             $stmt = $this->connect()->prepare('INSERT INTO reservations (idCar, idUser, dateDebut, dateFin, statut) VALUES (?, ?, ?, ?, "en attente")');
             $stmt->execute([$carId, $_SESSION["userid"], $dateDebut, $dateFin]);
 
-            $stmt = $this->connect()->prepare('UPDATE cars SET disponible = false WHERE idCar = ?');
-            $stmt->execute([$carId]);
+            // $stmt = $this->connect()->prepare('UPDATE cars SET disponible = false WHERE idCar = ?');
+            // $stmt->execute([$carId]);
 
             return true;
 
@@ -113,23 +113,36 @@ class user extends database{
         }
     }
 
-     public function acceptReservation($reservationId) {
+    public function acceptReservation($reservationId, $carId) {
         try {
+            $this->connect()->beginTransaction();
+
             $stmt = $this->connect()->prepare('UPDATE reservations SET statut = "confirmée" WHERE idReservation = ?');
             $stmt->execute([$reservationId]);
+
+            $stmt = $this->connect()->prepare('UPDATE cars SET disponible = false WHERE idCar = ?');
+            $stmt->execute([$carId]);
+
+            $this->connect()->commit();
             return true;
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());
             return false;
         }
     }
-
-    public function denyReservation($reservationId) {
+    public function denyReservation($reservationId, $carId) {
         try {
+            $this->connect()->beginTransaction();
+
             $stmt = $this->connect()->prepare('UPDATE reservations SET statut = "annulée" WHERE idReservation = ?');
             $stmt->execute([$reservationId]);
+
+            $stmt = $this->connect()->prepare('UPDATE cars SET disponible = true WHERE idCar = ?');
+            $stmt->execute([$carId]);
+
+            $this->connect()->commit();
             return true;
-        } catch (PDOException $e) {
+        } catch (PDOException $e){
             error_log("Database error: " . $e->getMessage());
             return false;
         }

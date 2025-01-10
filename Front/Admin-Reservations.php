@@ -93,14 +93,17 @@ $reservations = $user->getAllReservations();
                                 <td class="px-4 py-2 border border-orange-500">
                                     <form action="../handleReservation.php" method="POST" class="inline">
                                         <input type="hidden" name="reservationId" value="<?= htmlspecialchars($reservation['idReservation']) ?>">
+                                        <input type="hidden" name="carId" value="<?= htmlspecialchars($reservation['idCar']) ?>">
                                         <button type="submit" name="action" value="accept" class="bg-green-500 text-white px-2 py-1 rounded">Accept</button>
                                     </form>
                                     <form action="../handleReservation.php" method="POST" class="inline">
                                         <input type="hidden" name="reservationId" value="<?= htmlspecialchars($reservation['idReservation']) ?>">
+                                        <input type="hidden" name="carId" value="<?= htmlspecialchars($reservation['idCar']) ?>">
                                         <button type="submit" name="action" value="deny" class="bg-red-500 text-white px-2 py-1 rounded">Deny</button>
                                     </form>
                                     <form action="../handleReservation.php" method="POST" class="inline">
                                         <input type="hidden" name="reservationId" value="<?= htmlspecialchars($reservation['idReservation']) ?>">
+                                        <input type="hidden" name="carId" value="<?= htmlspecialchars($reservation['idCar']) ?>">
                                         <button type="submit" name="action" value="delete" class="bg-gray-500 text-white px-2 py-1 rounded">Delete</button>
                                     </form>
                                 </td>

@@ -6,23 +6,21 @@ session_start();
 $role = $_SESSION["role"];
 
 if ($role !== "admin") {
-    header("Location: ../index.php");
+    header("Location: Classes/Login-Register.php");
     exit();
 }
 
 $action = $_POST['action'];
 $reservationId = $_POST['reservationId'];
-
-if ($action && $reservationId) {
-    // Create a user instance
+$carId = $_POST['carId'];
+if ($action && $reservationId && $carId) {
     $user = new user();
-
     switch ($action) {
         case 'accept':
-            $user->acceptReservation($reservationId);
+            $user->acceptReservation($reservationId, $carId);
             break;
         case 'deny':
-            $user->denyReservation($reservationId);
+            $user->denyReservation($reservationId, $carId);
             break;
         case 'delete':
             $user->deleteReservation($reservationId);
