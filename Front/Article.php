@@ -85,12 +85,28 @@ $comments = $comment->getCommentsByArticleId($pdo, $idArticle);
                 <?php endif; ?>
 
                 <h3 class="text-xl font-bold text-orange-500 mb-4">Comments</h3>
-                    <?php foreach ($comments as $comment): ?>
-                        <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                <?php foreach ($comments as $comment): ?>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4 flex justify-between">
+                        <div>
                             <p class="text-gray-700 mb-2"><strong><?= htmlspecialchars($comment['nom']) ?></strong></p>
                             <p class="text-gray-700"><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
                         </div>
-                    <?php endforeach; ?>
+                            <?php if ($userid === $comment['idUser']): ?>
+                        <div class="mt-2">
+                                <form action="../editComment.php" method="POST" class="inline">
+                                    <input type="hidden" name="commentId" value="<?= htmlspecialchars($comment['idComment']) ?>">
+                                    <input type="hidden" name="idArticle" value="<?= htmlspecialchars($idArticle) ?>">
+                                    <button type="submit" name="updateComment" class="bg-gray-500 text-white px-2 py-1 rounded">Edit</button>
+                                </form>
+                                <form action="../deleteComment.php" method="POST" class="inline">
+                                    <input type="hidden" name="commentId" value="<?= htmlspecialchars($comment['idComment']) ?>">
+                                    <input type="hidden" name="idArticle" value="<?= htmlspecialchars($idArticle) ?>">
+                                    <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                                </form>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </main>
